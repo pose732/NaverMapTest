@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -19,13 +20,18 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
+import com.naver.maps.map.overlay.PolygonOverlay;
+import com.naver.maps.map.overlay.PolylineOverlay;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Spinner spinner;
     private CheckBox checkBox;
-
+    private PolygonOverlay polygon;
+    private PolylineOverlay polyline;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +97,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Marker marker3 = new Marker();
         marker3.setPosition(new LatLng(35.970526679440674, 126.61734220993289));
         marker3.setMap(naverMap);
-        
+
+        PolygonOverlay polygon = new PolygonOverlay();
+        polygon.setCoords(Arrays.asList(
+                new LatLng(35.9462109232765, 126.68205850973268),
+                new LatLng(35.98785054141381, 126.74903971349413),
+                new LatLng(35.970526679440674, 126.61734220993289)
+        ));
+        polygon.setColor(Color.argb(50,255,0,0));
+        polygon.setMap(naverMap);
+        PolylineOverlay polyline = new PolylineOverlay();
+        polyline.setCoords(Arrays.asList(
+                new LatLng(35.9462109232765, 126.68205850973268),
+                new LatLng(35.98785054141381, 126.74903971349413),
+                new LatLng(35.970526679440674, 126.61734220993289),
+                new LatLng(35.9462109232765, 126.68205850973268)
+        ));
+        polyline.setWidth(10);
+        polyline.setColor(Color.RED);
+        polyline.setMap(naverMap);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
